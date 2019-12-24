@@ -1,0 +1,10 @@
+/.settings/
+/.classpath
+/.project
+/target/
+.DS_Store
+.gitignore.swo
+.gitignore.swp
+dockerapp.iml
+.idea/
+github-profile-1.0-SNAPSHOT/
