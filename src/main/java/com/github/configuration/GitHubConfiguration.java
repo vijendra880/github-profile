@@ -16,6 +16,7 @@ public class GitHubConfiguration {
   private String clientSecret;
   private String redirectUri;
   private String profileUrl;
+  private String userUrl;
 
   public String getAuthUrl() {
     return authUrl;
@@ -63,5 +64,13 @@ public class GitHubConfiguration {
 
   public void setProfileUrl(String profileUrl) {
     this.profileUrl = profileUrl;
+  }
+
+  public String getUserUrl() {
+    return userUrl;
+  }
+
+  public void setUserUrl(String userUrl) {
+    this.userUrl = userUrl;
   }
 }

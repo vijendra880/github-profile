@@ -1,7 +1,9 @@
 package com.github.service;
 
-import com.github.dto.ProfileDto;
+import org.springframework.ui.Model;
 
 public interface AuthService {
-    String getProfileWithAuth(String code, String handle);
+    String loginUsingTemporaryCode(String code, Model model);
+
+    String getAuthUrl();
 }

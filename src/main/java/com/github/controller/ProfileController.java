@@ -1,8 +1,10 @@
 package com.github.controller;
 
+import com.github.dto.ErrorResponse;
 import com.github.dto.ProfileSearchHistoryDto;
+import com.github.dto.ProfileRequestDto;
+import com.github.dto.ProfileSearchResponseDto;
 import com.github.service.ProfileService;
-import com.github.service.SearchHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,22 +17,26 @@ public class ProfileController {
 
   @Autowired private ProfileService profileService;
 
-  @Autowired private SearchHistoryService searchHistoryService;
-
   @PostMapping
-  public ResponseEntity<String> searchProfile(@RequestParam String handle) {
-    return new ResponseEntity<String>(profileService.searchProfile(handle), HttpStatus.OK);
+  public ResponseEntity<ProfileSearchResponseDto> searchProfile(
+      @ModelAttribute ProfileRequestDto profileRequestDto) {
+    return new ResponseEntity<ProfileSearchResponseDto>(
+        profileService.searchProfile(profileRequestDto), HttpStatus.OK);
   }
 
   @GetMapping
-  public ResponseEntity<ProfileSearchHistoryDto> getSearchHistoryDto() {
+  public ResponseEntity<ProfileSearchHistoryDto> getSearchHistory(
+      @ModelAttribute ProfileRequestDto profileRequestDto) {
     return new ResponseEntity<ProfileSearchHistoryDto>(
-        searchHistoryService.getAllSearchHistory(), HttpStatus.OK);
+        profileService.getSearchHistory(profileRequestDto.getUserId()), HttpStatus.OK);
   }
 
-  @DeleteMapping
-  public ResponseEntity deleteSearchHistory(@RequestParam String handle) {
-    searchHistoryService.deleteSearchHistory(handle);
-    return new ResponseEntity(HttpStatus.OK);
+  // TODO- change it to @DeleteMapping
+  @GetMapping("/delete")
+  public ResponseEntity<ErrorResponse> deleteSearchHistory(
+      @ModelAttribute ProfileRequestDto profileRequestDto) {
+    profileService.deleteSearchHistory(
+        profileRequestDto.getUserId(), profileRequestDto.getHandle());
+    return new ResponseEntity(new ErrorResponse(), HttpStatus.OK);
   }
 }

@@ -2,7 +2,7 @@ package com.github.dto;
 
 import java.util.List;
 
-public class ProfileSearchHistoryDto {
+public class ProfileSearchHistoryDto{
     private List<String> searchHistoryList;
 
     public List<String> getSearchHistoryList() {
